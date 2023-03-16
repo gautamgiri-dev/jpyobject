@@ -20,6 +20,10 @@ class JPyObject:
     def _loads(self, s: str | bytes | bytearray, **kwargs) -> Self:
         jsonObj = json.loads(s, **kwargs)
         self.__dict__.update(jsonObj)
+        
+    def _load(self, s: str) -> Self:
+        jsonObj = json.load(s)
+        self.__dict__.update(jsonObj)
 
     def to_dict(self) -> dict[str, Any]:
         return self.__dict__
@@ -28,4 +32,9 @@ class JPyObject:
 def loads(s: str | bytes | bytearray, **kwargs) -> JPyObject:
     obj = JPyObject()
     obj._loads(s)
+    return obj
+
+def load(s: str, **kwargs) -> JPyObject:
+    obj = JPyObject()
+    obj._load(s)
     return obj
